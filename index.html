@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Forum do Artur - Gondomar</title>
+    <style>
+        :root {
+            --primary-color: #00aa6c;
+            --text-main: #000000;
+            --text-muted: #4a4a4a;
+            --bg-light: #f2f2f2;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 5%;
+        }
+
+        .hero-section {
+            margin-bottom: 20px;
+        }
+
+        .restaurant-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .rating-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            display: flex;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+
+        .stars .filled {
+            color: var(--primary-color);
+        }
+
+        .stars .half {
+            position: relative;
+        }
+
+        .rating-score {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .review-count {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .quick-info {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-auto-rows: 200px;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: var(--bg-light);
+        }
+
+        .gallery-item:first-child {
+            grid-row: span 2;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .info-icon {
+            color: var(--text-main);
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .schedule-table td {
+            padding: 6px 0;
+            vertical-align: top;
+        }
+
+        .schedule-table td:first-child {
+            font-weight: 500;
+            width: 40%;
+        }
+
+        .closed {
+            color: #d93025;
+            font-weight: 500;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 12px 24px;
+            border-radius: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #008c5a;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+            }
+            .gallery-item:first-child {
+                grid-row: span 1;
+            }
+            .gallery-item:not(:first-child) {
+                display: none;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Logotipo fornecido pelo utilizador -->
+        <img src="477380765_122140554266513610_8078760001076046410_n.jpg" alt="Logotipo Restaurante Forum do Artur" class="logo" onerror="this.src='https://via.placeholder.com/50x50?text=Logo'">
+        <div class="brand-name">Restaurante Forum do Artur</div>
+    </header>
+
+    <div class="container">
+        <div class="hero-section">
+            <h1 class="restaurant-title">Restaurante Forum do Artur</h1>
+            
+            <div class="rating-block">
+                <div class="stars">
+                    <span class="filled">★</span>
+                    <span class="filled">★</span>
+                    <span class="filled">★</span>
+                    <span class="filled">★</span>
+                    <span class="half">★</span>
+                </div>
+                <span class="rating-score">4.2</span>
+                <span class="review-count">1 146 avaliações</span>
+            </div>
+            
+            <div class="quick-info">
+                📍 R. Outeiro 233, Gondomar • 🍴 Cozinha Tradicional Portuguesa
+            </div>
+        </div>
+
+        <div class="gallery">
+            <!-- Imagem de comida principal fornecida pelo utilizador -->
+            <img src="image.png" alt="Prato principal" class="gallery-item" onerror="this.src='https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?auto=format&fit=crop&w=800&q=80'">
+            <img src="https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?auto=format&fit=crop&w=400&q=80" alt="Ambiente do restaurante" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1621845347895-46f35b44ec2f?auto=format&fit=crop&w=400&q=80" alt="Sobremesa" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80" alt="Prato de carne" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80" alt="Interior" class="gallery-item">
+        </div>
+
+        <div class="main-content">
+            <div class="about-section">
+                <h2 class="section-title">Sobre o Restaurante</h2>
+                <p>O <strong>Restaurante Forum do Artur</strong> é uma referência gastronómica em Gondomar, oferecendo os melhores pratos da cozinha tradicional portuguesa. Com um ambiente acolhedor e familiar, primamos pela qualidade dos ingredientes e por um serviço de excelência. Venha desfrutar de uma refeição inesquecível, seja ao almoço ou ao jantar.</p>
+                <br>
+                <h2 class="section-title">Avaliações em Destaque</h2>
+                <div class="card">
+                    <div class="rating-block" style="margin-bottom: 5px;">
+                        <div class="stars" style="font-size: 16px;"><span class="filled">★</span><span class="filled">★</span><span class="filled">★</span><span class="filled">★</span><span class="filled">★</span></div>
+                    </div>
+                    <p><em>"Comida caseira excelente! O atendimento é muito atencioso e os preços são justos. Recomendo vivamente a francesinha e os pratos do dia."</em></p>
+                    <small style="color: var(--text-muted);">- Cliente Verificado</small>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="card">
+                    <h3 style="margin-bottom: 15px; font-size: 18px;">Detalhes e Contactos</h3>
+                    
+                    <div class="info-row">
+                        <span class="info-icon">📍</span>
+                        <div>
+                            R. Outeiro 233<br>
+                            4420-237 Gondomar<br>
+                            <small style="color: var(--text-muted);">Plus Code: 4FVG+R3 Gondomar</small>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon">📞</span>
+                        <div>
+                            <a href="tel:+351224835169" style="color: var(--text-main); text-decoration: none;">22 483 5169</a>
+                        </div>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
+                    <h3 style="margin-bottom: 15px; font-size: 18px;">Horário de Funcionamento</h3>
+                    <div class="info-row">
+                        <span class="info-icon">🕒</span>
+                        <table class="schedule-table">
+                            <tr>
+                                <td>segunda-feira</td>
+                                <td class="closed">Encerrado</td>
+                            </tr>
+                            <tr>
+                                <td>terça-feira</td>
+                                <td>12:00–15:00<br>18:30–23:00</td>
+                            </tr>
+                            <tr>
+                                <td>quarta-feira</td>
+                                <td>12:00–15:00<br>18:30–23:00</td>
+                            </tr>
+                            <tr>
+                                <td>quinta-feira</td>
+                                <td>12:00–15:00<br>18:30–23:00</td>
+                            </tr>
+                            <tr>
+                                <td>sexta-feira</td>
+                                <td>12:00–15:00<br>18:30–00:00</td>
+                            </tr>
+                            <tr>
+                                <td>sábado</td>
+                                <td>12:00–15:00<br>18:30–00:00</td>
+                            </tr>
+                            <tr>
+                                <td>domingo</td>
+                                <td>12:00–15:00<br>18:30–23:00</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <a href="tel:+351224835169" class="btn">Ligar Agora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
