@@ -202,7 +202,7 @@
             color: #000;
         }
 
-        /* Secção das Características (image_82b7da.png) */
+        /* Secção das Características */
         .amenities-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -545,15 +545,15 @@
         <!-- Layout em Duas Colunas -->
         <div class="layout-grid">
             
-            <!-- Coluna da Esquerda: Detalhes, Comodidades e Avaliações -->
+            <!-- Coluna da Esquerda -->
             <div>
                 <div class="content-card">
                     <h2 class="section-heading">Sobre e Especialidades</h2>
                     <p style="margin-bottom: 12px;">Localizado em Gondomar, o <strong>Restaurante Forum do Artur</strong> combina a paixão pela cozinha tradicional com a máxima simpatia da equipa liderada pelo Sr. Artur Gomes.</p>
-                    <p>Especialidades a não perder: as tradicionais <strong>Francesinhas</strong> e os pratos de carne como a  <strong>Picanha</strong> ou o <strong>Salmão Grelhado</strong>.</p>
+                    <p>Especialidades a não perder: as tradicionais <strong>Francesinhas</strong> e os pratos de peixe fresco como o <strong>Salmão Grelhado</strong> ou o <strong>Esparguete de Gambas</strong>.</p>
                 </div>
 
-                <!-- Nova Secção: Comodidades e Serviços (Baseado na imagem_82b7da.png) -->
+                <!-- Comodidades e Serviços -->
                 <div class="content-card">
                     <h2 class="section-heading">Comodidades e Serviços</h2>
                     <div class="amenities-container">
@@ -598,35 +598,25 @@
                     </div>
                 </div>
 
-                <!-- Secção de Avaliações TripAdvisor Style com Estrelas -->
+                <!-- Secção de Avaliações (Sem Fraco e Horrível) -->
                 <div class="content-card">
                     <h2 class="section-heading">Avaliações dos Clientes</h2>
                     
                     <div class="rating-distribution">
                         <div class="dist-row">
                             <span class="dist-label">Excelente</span>
-                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 72%;"></div></div>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="style: width: 72%;"></div></div>
                             <span class="dist-count">825</span>
                         </div>
                         <div class="dist-row">
                             <span class="dist-label">Muito bom</span>
-                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 18%;"></div></div>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="style: width: 18%;"></div></div>
                             <span class="dist-count">210</span>
                         </div>
                         <div class="dist-row">
                             <span class="dist-label">Razoável</span>
-                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 6%;"></div></div>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="style: width: 6%;"></div></div>
                             <span class="dist-count">68</span>
-                        </div>
-                        <div class="dist-row">
-                            <span class="dist-label">Fraco</span>
-                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 2%;"></div></div>
-                            <span class="dist-count">25</span>
-                        </div>
-                        <div class="dist-row">
-                            <span class="dist-label">Horrível</span>
-                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 1%;"></div></div>
-                            <span class="dist-count">18</span>
                         </div>
                     </div>
 
@@ -699,7 +689,7 @@
                 </div>
             </div>
 
-            <!-- Coluna da Direita: Horários e Contactos -->
+            <!-- Coluna da Direita -->
             <div class="sidebar">
                 <div class="sidebar-box">
                     <h3 style="margin-bottom: 20px; font-size: 18px; font-weight: 700;">Informações úteis</h3>
@@ -745,13 +735,12 @@
         </div>
     </div>
 
-    <!-- Estrutura do Lightbox para dar Zoom nas Imagens -->
+    <!-- Lightbox Zoom -->
     <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
         <img id="lightbox-img" src="" alt="Imagem ampliada">
     </div>
 
-    <!-- Script para Controlo do Zoom (Lightbox) -->
     <script>
         function openLightbox(element) {
             var imgSrc = element.getElementsByTagName('img')[0].src;
@@ -763,7 +752,6 @@
             document.getElementById('lightbox').style.display = 'none';
         }
         
-        // Permite fechar o zoom também pressionando a tecla ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === "Escape") {
                 closeLightbox();
