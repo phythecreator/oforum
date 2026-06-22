@@ -3,335 +3,725 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante Forum do Artur - Gondomar</title>
+    <title>Restaurante Forum do Artur - Gondomar (TripAdvisor Style)</title>
     <style>
         :root {
-            --primary-color: #00aa6c;
-            --text-main: #000000;
-            --text-muted: #4a4a4a;
-            --bg-light: #f2f2f2;
+            --ta-green: #00aa6c;
+            --ta-dark-green: #008c5a;
+            --bg-gray: #f2f2f2;
+            --text-dark: #2c2c2c;
+            --text-muted: #666666;
             --border-color: #e0e0e0;
+            --bubble-color: #00aa6c;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: "TripAdvisor_Sans", Arial, sans-serif;
         }
 
         body {
             background-color: #fff;
-            color: var(--text-main);
-            line-height: 1.6;
+            color: var(--text-dark);
+            line-height: 1.5;
         }
 
+        /* Nav Bar Estilo TripAdvisor */
         header {
-            display: flex;
-            align-items: center;
-            padding: 15px 5%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-color);
             background: white;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .logo {
-            height: 50px;
-            width: auto;
-            border-radius: 4px;
-            margin-right: 15px;
+            height: 48px;
+            width: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--ta-green);
         }
 
         .brand-name {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 5%;
-        }
-
-        .hero-section {
-            margin-bottom: 20px;
-        }
-
-        .restaurant-title {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .rating-block {
+        .ta-badge-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .stars {
-            display: flex;
-            color: var(--primary-color);
-            font-size: 20px;
-        }
-
-        .stars .filled {
-            color: var(--primary-color);
-        }
-
-        .stars .half {
-            position: relative;
-        }
-
-        .rating-score {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .review-count {
-            color: var(--text-muted);
-            font-size: 14px;
-            text-decoration: underline;
+            gap: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            background: #fff;
+            padding: 6px 12px;
+            border: 1px solid #000;
+            border-radius: 20px;
             cursor: pointer;
         }
 
-        .quick-info {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
+        /* Container Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .gallery {
+        /* Caminho de Navegação / Breadcrumbs */
+        .breadcrumbs {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* Informações do Topo */
+        .header-section {
+            margin-bottom: 25px;
+        }
+
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .stats-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        /* Círculos de Avaliação Estilo TripAdvisor */
+        .bubbles-wrapper {
+            display: flex;
+            gap: 2px;
+        }
+
+        .bubble {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--ta-green);
+            display: inline-block;
+        }
+
+        .bubble.full {
+            background-color: var(--ta-green);
+        }
+
+        .bubble.half {
+            background: linear-gradient(90deg, var(--ta-green) 50%, transparent 50%);
+        }
+
+        .rating-number {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .reviews-link {
+            color: #000;
+            text-decoration: underline;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .ranking-text {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .ranking-text strong {
+            color: #000;
+        }
+
+        /* Nova Galeria de Imagens Atualizada */
+        .photo-grid-ta {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            grid-auto-rows: 200px;
-            gap: 10px;
+            grid-template-rows: 200px 200px;
+            gap: 8px;
             margin-bottom: 30px;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
         }
 
-        .gallery-item {
+        .grid-img-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: #f7f7f7;
+        }
+
+        .grid-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            background-color: var(--bg-light);
+            transition: transform 0.3s ease;
         }
 
-        .gallery-item:first-child {
+        .grid-img-wrapper img:hover {
+            transform: scale(1.02);
+        }
+
+        .grid-img-wrapper:first-child {
             grid-row: span 2;
         }
 
-        .main-content {
+        .more-photos-overlay {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* Layout de Duas Colunas */
+        .layout-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 40px;
+            gap: 32px;
         }
 
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+        .content-card {
             border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
         }
 
-        .card {
-            background: white;
+        .content-card:last-child {
+            border-bottom: none;
+        }
+
+        .section-heading {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        /* Distribuição de Avaliações */
+        .rating-distribution {
+            background: #fafafa;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .info-row {
+        .dist-row {
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .dist-label {
+            width: 90px;
+        }
+
+        .dist-bar-bg {
+            flex-grow: 1;
+            background: #e0e0e0;
+            height: 12px;
+            border-radius: 6px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+
+        .dist-bar-fill {
+            background: #ffb100;
+            height: 100%;
+            border-radius: 6px;
+        }
+
+        .dist-count {
+            width: 40px;
+            text-align: right;
+            color: var(--text-muted);
+        }
+
+        /* Cartões de Avaliação Real do Utilizador */
+        .ta-review-card {
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px 0;
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+        }
+
+        .ta-review-card:last-child {
+            border-bottom: none;
+        }
+
+        .user-profile {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .user-avatar-row {
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
 
-        .info-icon {
-            color: var(--text-main);
-            width: 20px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
+        .user-avatar-circle {
+            width: 36px;
+            height: 36px;
+            background-color: #dfeedb;
+            color: #3f7033;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
             font-size: 14px;
         }
 
-        .schedule-table td {
-            padding: 6px 0;
-            vertical-align: top;
+        .user-name {
+            font-weight: 700;
+            font-size: 14px;
         }
 
-        .schedule-table td:first-child {
-            font-weight: 500;
-            width: 40%;
+        .user-meta {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        .closed {
-            color: #d93025;
-            font-weight: 500;
+        .review-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 12px 24px;
-            border-radius: 24px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 10px;
+        .review-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .review-title {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .review-date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: var(--text-dark);
+            text-align: justify;
+        }
+
+        /* Barra Lateral / Sidebar */
+        .sidebar-box {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: white;
+            position: sticky;
+            top: 90px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .info-item-icon {
+            font-size: 18px;
+            color: #000;
+            width: 24px;
+        }
+
+        .hours-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .hours-table {
             width: 100%;
-            transition: background-color 0.2s;
+            border-collapse: collapse;
+            font-size: 13px;
         }
 
-        .btn:hover {
-            background-color: #008c5a;
+        .hours-table td {
+            padding: 4px 0;
         }
 
-        @media (max-width: 768px) {
-            .gallery {
+        .hours-table td:first-child {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .hours-table .closed-text {
+            color: #cc0000;
+            font-weight: 700;
+        }
+
+        .cta-btn {
+            display: block;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 14px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+
+        .cta-btn:hover {
+            background: #333;
+        }
+
+        /* Responsividade */
+        @media (max-width: 850px) {
+            .layout-grid {
                 grid-template-columns: 1fr;
-                grid-auto-rows: 250px;
             }
-            .gallery-item:first-child {
+            .photo-grid-ta {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 160px 160px;
+            }
+            .photo-grid-ta .grid-img-wrapper:first-child {
                 grid-row: span 1;
+                grid-column: span 2;
             }
-            .gallery-item:not(:first-child) {
-                display: none;
-            }
-            .main-content {
+            .ta-review-card {
                 grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .sidebar-box {
+                position: relative;
+                top: 0;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Menu Superior TripAdvisor Style -->
     <header>
-        <!-- Logotipo fornecido pelo utilizador -->
-        <img src="477380765_122140554266513610_8078760001076046410_n.jpg" alt="Logotipo Restaurante Forum do Artur" class="logo" onerror="this.src='https://via.placeholder.com/50x50?text=Logo'">
-        <div class="brand-name">Restaurante Forum do Artur</div>
+        <div class="nav-container">
+            <div class="brand-box">
+                <img src="477380765_122140554266513610_8078760001076046410_n.jpg" alt="Logotipo Restaurante Forum do Artur" class="logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <div class="brand-name">Restaurante Forum do Artur</div>
+            </div>
+            <div class="ta-badge-container">
+                <span>🦉</span>
+                <span>TripAdvisor Pro</span>
+            </div>
+        </div>
     </header>
 
     <div class="container">
-        <div class="hero-section">
-            <h1 class="restaurant-title">Restaurante Forum do Artur</h1>
-            
-            <div class="rating-block">
-                <div class="stars">
-                    <span class="filled">★</span>
-                    <span class="filled">★</span>
-                    <span class="filled">★</span>
-                    <span class="filled">★</span>
-                    <span class="half">★</span>
+        
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            Europa > Portugal > Distrito do Porto > Gondomar > Restaurantes em Gondomar > Restaurante Forum do Artur
+        </div>
+
+        <!-- Secção de Título e Classificação -->
+        <div class="header-section">
+            <h1 class="main-title">Restaurante Forum do Artur</h1>
+            <div class="stats-row">
+                <div class="bubbles-wrapper">
+                    <span class="bubble full"></span>
+                    <span class="bubble full"></span>
+                    <span class="bubble full"></span>
+                    <span class="bubble full"></span>
+                    <span class="bubble half"></span>
                 </div>
-                <span class="rating-score">4.2</span>
-                <span class="review-count">1 146 avaliações</span>
-            </div>
-            
-            <div class="quick-info">
-                📍 R. Outeiro 233, Gondomar • 🍴 Cozinha Tradicional Portuguesa
+                <span class="rating-number">4.2</span>
+                <span class="reviews-link">1.146 avaliações</span>
+                <span class="ranking-text">Nº 1 de 34 restaurantes em <strong>Gondomar</strong></span>
             </div>
         </div>
 
-        <div class="gallery">
-            <!-- Imagem de comida principal fornecida pelo utilizador -->
-            <img src="image.png" alt="Prato principal" class="gallery-item" onerror="this.src='https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?auto=format&fit=crop&w=800&q=80'">
-            <img src="https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?auto=format&fit=crop&w=400&q=80" alt="Ambiente do restaurante" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1621845347895-46f35b44ec2f?auto=format&fit=crop&w=400&q=80" alt="Sobremesa" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80" alt="Prato de carne" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80" alt="Interior" class="gallery-item">
+        <!-- Nova Galeria Solicitada com Fotos Reais -->
+        <div class="photo-grid-ta">
+            <div class="grid-img-wrapper">
+                <!-- Imagem mantida do primeiro upload -->
+                <img src="image.png" alt="Esparguete com Gambas e Mexilhão" onerror="this.src='https://via.placeholder.com/600x400?text=Esparguete+com+Gambas'">
+            </div>
+            <div class="grid-img-wrapper">
+                <img src="Captura de ecrã 2026-06-22 152620.png" alt="Prato do Fórum" onerror="this.src='https://via.placeholder.com/300x200?text=Foto+1'">
+            </div>
+            <div class="grid-img-wrapper">
+                <img src="comida233.png" alt="Especialidade da Casa" onerror="this.src='https://via.placeholder.com/300x200?text=Foto+2'">
+            </div>
+            <div class="grid-img-wrapper">
+                <img src="menu1.png" alt="O Nosso Menu" onerror="this.src='https://via.placeholder.com/300x200?text=Foto+3'">
+            </div>
+            <div class="grid-img-wrapper">
+                <img src="Captura de ecrã 2026-06-22 153015.png" alt="Pratos Tradicionais" onerror="this.src='https://via.placeholder.com/300x200?text=Foto+4'">
+                <div class="more-photos-overlay">+ Ver mais fotos (sala.png)</div>
+            </div>
         </div>
 
-        <div class="main-content">
-            <div class="about-section">
-                <h2 class="section-title">Sobre o Restaurante</h2>
-                <p>O <strong>Restaurante Forum do Artur</strong> é uma referência gastronómica em Gondomar, oferecendo os melhores pratos da cozinha tradicional portuguesa. Com um ambiente acolhedor e familiar, primamos pela qualidade dos ingredientes e por um serviço de excelência. Venha desfrutar de uma refeição inesquecível, seja ao almoço ou ao jantar.</p>
-                <br>
-                <h2 class="section-title">Avaliações em Destaque</h2>
-                <div class="card">
-                    <div class="rating-block" style="margin-bottom: 5px;">
-                        <div class="stars" style="font-size: 16px;"><span class="filled">★</span><span class="filled">★</span><span class="filled">★</span><span class="filled">★</span><span class="filled">★</span></div>
-                    </div>
-                    <p><em>"Comida caseira excelente! O atendimento é muito atencioso e os preços são justos. Recomendo vivamente a francesinha e os pratos do dia."</em></p>
-                    <small style="color: var(--text-muted);">- Cliente Verificado</small>
+        <!-- Layout em Duas Colunas -->
+        <div class="layout-grid">
+            
+            <!-- Coluna da Esquerda: Detalhes e Avaliações -->
+            <div>
+                <div class="content-card">
+                    <h2 class="section-heading">Sobre e Especialidades</h2>
+                    <p style="margin-bottom: 12px;">Localizado no coração de Gondomar, o <strong>Restaurante Forum do Artur</strong> (gerido pelo Sr. Artur Gomes) destaca-se pela excelente hospitalidade, ambiente acolhedor e comida tradicional portuguesa repleta de sabor.</p>
+                    <p>Os clientes recomendam fortemente a famosa <strong>Francesinha</strong> com o seu molho apurado e o delicioso <strong>Esparguete com Gambas e Mexilhão</strong>.</p>
                 </div>
-            </div>
 
-            <div class="sidebar">
-                <div class="card">
-                    <h3 style="margin-bottom: 15px; font-size: 18px;">Detalhes e Contactos</h3>
+                <!-- Secção de Avaliações TripAdvisor Style -->
+                <div class="content-card">
+                    <h2 class="section-heading">Avaliações dos Clientes</h2>
                     
-                    <div class="info-row">
-                        <span class="info-icon">📍</span>
+                    <!-- Distribuição Gráfica de Bolhas -->
+                    <div class="rating-distribution">
+                        <div class="dist-row">
+                            <span class="dist-label">Excelente</span>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 72%;"></div></div>
+                            <span class="dist-count">825</span>
+                        </div>
+                        <div class="dist-row">
+                            <span class="dist-label">Muito bom</span>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 18%;"></div></div>
+                            <span class="dist-count">210</span>
+                        </div>
+                        <div class="dist-row">
+                            <span class="dist-label">Razoável</span>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 6%;"></div></div>
+                            <span class="dist-count">68</span>
+                        </div>
+                        <div class="dist-row">
+                            <span class="dist-label">Fraco</span>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 2%;"></div></div>
+                            <span class="dist-count">25</span>
+                        </div>
+                        <div class="dist-row">
+                            <span class="dist-label">Horrível</span>
+                            <div class="dist-bar-bg"><div class="dist-bar-fill" style="width: 1%;"></div></div>
+                            <span class="dist-count">18</span>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Avaliações Extraídas das Imagens -->
+                    <div class="reviews-list">
+                        
+                        <!-- Crítica 1: Raquel Alexandra -->
+                        <div class="ta-review-card">
+                            <div class="user-profile">
+                                <div class="user-avatar-row">
+                                    <div class="user-avatar-circle">RA</div>
+                                    <div class="user-name">Raquel A.</div>
+                                </div>
+                                <span class="user-meta">Guia local • 8 críticas</span>
+                                <span class="user-meta">7 fotos</span>
+                            </div>
+                            <div class="review-details">
+                                <div class="review-title-row">
+                                    <div class="bubbles-wrapper">
+                                        <span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span>
+                                    </div>
+                                    <span class="review-date">há um ano</span>
+                                </div>
+                                <div class="review-title">"Atendimento muito bom, simpáticos e atenciosos"</div>
+                                <p class="review-text">Atendimento muito bom, os funcionários foram super simpáticos e atenciosos. Comemos um esparguete com gambas e mexilhão e estava muito bom, a massa estava um pouco cozido de mais mas o sabor estava ótimo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Crítica 2: Gusto Silva -->
+                        <div class="ta-review-card">
+                            <div class="user-profile">
+                                <div class="user-avatar-row">
+                                    <div class="user-avatar-circle">GS</div>
+                                    <div class="user-name">Gusto Silva</div>
+                                </div>
+                                <span class="user-meta">Guia local • 29 críticas</span>
+                                <span class="user-meta">10 fotos</span>
+                            </div>
+                            <div class="review-details">
+                                <div class="review-title-row">
+                                    <div class="bubbles-wrapper">
+                                        <span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span>
+                                    </div>
+                                    <span class="review-date">há 4 anos</span>
+                                </div>
+                                <div class="review-title">"Fórum Gondomar 5 estrelas. Gerente fantástico"</div>
+                                <p class="review-text">Tivemos um pequeno problema mas o gerente Sr Artur Gomes prontificou-se assumiu responsabilidade obrigado iremos repetir sem dúvida, Estava tudo muito bom obrig.</p>
+                            </div>
+                        </div>
+
+                        <!-- Crítica 3: Luísa Melo -->
+                        <div class="ta-review-card">
+                            <div class="user-profile">
+                                <div class="user-avatar-row">
+                                    <div class="user-avatar-circle">LM</div>
+                                    <div class="user-name">Luísa Melo</div>
+                                </div>
+                                <span class="user-meta">Guia local • 36 críticas</span>
+                                <span class="user-meta">545 fotos</span>
+                            </div>
+                            <div class="review-details">
+                                <div class="review-title-row">
+                                    <div class="bubbles-wrapper">
+                                        <span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble"></span>
+                                    </div>
+                                    <span class="review-date">há 5 anos</span>
+                                </div>
+                                <div class="review-title">"Top! Comida muito boa e simpatia extrema"</div>
+                                <p class="review-text">Top! Comida muito boa , qualidade de atendimento e disponibilidade do staff. Simpatia extrema dos funcionários leva-nos a ficar totalmente rendidos ao local, bom atendimento ao cliente, simpatia, preocupação. Além disso, as condições são ótimas. Fiquei a adorar.</p>
+                            </div>
+                        </div>
+
+                        <!-- Crítica 4: Marco Andrade -->
+                        <div class="ta-review-card">
+                            <div class="user-profile">
+                                <div class="user-avatar-row">
+                                    <div class="user-avatar-circle">MA</div>
+                                    <div class="user-name">Marco Andrade</div>
+                                </div>
+                                <span class="user-meta">Guia local • 29 críticas</span>
+                            </div>
+                            <div class="review-details">
+                                <div class="review-title-row">
+                                    <div class="bubbles-wrapper">
+                                        <span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble"></span>
+                                    </div>
+                                    <span class="review-date">há 4 meses</span>
+                                </div>
+                                <div class="review-title">"Francesinha muito boa e molho também"</div>
+                                <p class="review-text">Francesinha muito boa e molho também muito bom. Não conhecia apesar de morar em Gondomar mas recomendo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Crítica 5: Paulo Barbosa -->
+                        <div class="ta-review-card">
+                            <div class="user-profile">
+                                <div class="user-avatar-row">
+                                    <div class="user-avatar-circle">PB</div>
+                                    <div class="user-name">Paulo barbosa</div>
+                                </div>
+                                <span class="user-meta">2 críticas</span>
+                            </div>
+                            <div class="review-details">
+                                <div class="review-title-row">
+                                    <div class="bubbles-wrapper">
+                                        <span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span><span class="bubble full"></span>
+                                    </div>
+                                    <span class="review-date">há 3 meses</span>
+                                </div>
+                                <div class="review-title">"Muito boa comida e bom atendimento"</div>
+                                <p class="review-text">Muito boa comida e bom atendimento. Preço por pessoa: 25 - 30 €.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna da Direita: Contacto e Horário Exato da Imagem 1 -->
+            <div class="sidebar">
+                <div class="sidebar-box">
+                    <h3 style="margin-bottom: 20px; font-size: 18px; font-weight: 700;">Informações úteis</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-item-icon">📍</div>
                         <div>
-                            R. Outeiro 233<br>
+                            <strong>Endereço:</strong><br>
+                            R. Outeiro 233,<br>
                             4420-237 Gondomar<br>
-                            <small style="color: var(--text-muted);">Plus Code: 4FVG+R3 Gondomar</small>
+                            <span style="color: var(--text-muted); font-size: 12px;">Plus Code: 4FVG+R3 Gondomar</span>
                         </div>
                     </div>
 
-                    <div class="info-row">
-                        <span class="info-icon">📞</span>
+                    <div class="info-item">
+                        <div class="info-item-icon">📞</div>
                         <div>
-                            <a href="tel:+351224835169" style="color: var(--text-main); text-decoration: none;">22 483 5169</a>
+                            <strong>Telefone:</strong><br>
+                            <a href="tel:+351224835169" style="color: #000; text-decoration: none; font-weight: 600;">22 483 5169</a>
                         </div>
                     </div>
 
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
-
-                    <h3 style="margin-bottom: 15px; font-size: 18px;">Horário de Funcionamento</h3>
-                    <div class="info-row">
-                        <span class="info-icon">🕒</span>
-                        <table class="schedule-table">
+                    <div class="info-item" style="flex-direction: column; gap: 4px;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div class="info-item-icon">🕒</div>
+                            <div class="hours-title">Horário de Funcionamento</div>
+                        </div>
+                        
+                        <table class="hours-table">
                             <tr>
-                                <td>segunda-feira</td>
-                                <td class="closed">Encerrado</td>
+                                <td>Segunda-feira</td>
+                                <td class="closed-text">Encerrado</td>
                             </tr>
                             <tr>
-                                <td>terça-feira</td>
-                                <td>12:00–15:00<br>18:30–23:00</td>
+                                <td>Terça-feira</td>
+                                <td>12:00–15:00, 18:30–23:00</td>
                             </tr>
                             <tr>
-                                <td>quarta-feira</td>
-                                <td>12:00–15:00<br>18:30–23:00</td>
+                                <td>Quarta-feira</td>
+                                <td>12:00–15:00, 18:30–23:00</td>
                             </tr>
                             <tr>
-                                <td>quinta-feira</td>
-                                <td>12:00–15:00<br>18:30–23:00</td>
+                                <td>Quinta-feira</td>
+                                <td>12:00–15:00, 18:30–23:00</td>
                             </tr>
                             <tr>
-                                <td>sexta-feira</td>
-                                <td>12:00–15:00<br>18:30–00:00</td>
+                                <td>Sexta-feira</td>
+                                <td>12:00–15:00, 18:30–00:00</td>
                             </tr>
                             <tr>
-                                <td>sábado</td>
-                                <td>12:00–15:00<br>18:30–00:00</td>
+                                <td>Sábado</td>
+                                <td>12:00–15:00, 18:30–00:00</td>
                             </tr>
                             <tr>
-                                <td>domingo</td>
-                                <td>12:00–15:00<br>18:30–23:00</td>
+                                <td>Domingo</td>
+                                <td>12:00–15:00, 18:30–23:00</td>
                             </tr>
                         </table>
                     </div>
 
-                    <a href="tel:+351224835169" class="btn">Ligar Agora</a>
+                    <a href="tel:+351224835169" class="cta-btn">Fazer Reserva / Ligar</a>
                 </div>
             </div>
+
         </div>
+
     </div>
 
 </body>
